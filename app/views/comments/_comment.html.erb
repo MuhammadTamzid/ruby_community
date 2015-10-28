@@ -1,9 +1,8 @@
 <li id="comment-<%= comment.id %>">
-  <% cuser = User.find(comment.user_id) %>
+ 
+  <%= link_to gravatar_for(comment.user, size: 50), comment.user %>
 
-  <%= link_to gravatar_for(cuser, size: 50), cuser %>
-
-  <span class="user"><%= link_to cuser.name, cuser %></span>
+  <span class="user"><%= link_to comment.user.name, comment.user %></span>
   
   <span class="post_title"><%= comment.content %></span>
 
