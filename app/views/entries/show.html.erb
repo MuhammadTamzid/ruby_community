@@ -16,11 +16,31 @@
 	  </span>
 	  <span class="timestamp">
 	    Posted <%= time_ago_in_words(@entry.created_at) %> ago.
-	    <% if current_user?(@entry.user) %>
-	      <%= link_to "delete", @entry, method: :delete,
-	                                       data: { confirm: "You sure?" } %>
-	    <% end %>
 	  </span>
+
+	  <br/>
+
+	  <% if @entry.comments.any? %>
+      <h3>Comments (<%= @entry.comments.count %>)</h3>
+      <ol class="entries">
+        <%= render @comments %>
+      </ol>
+      <%= will_paginate @comments %>
+    <% end %>
   	</ol>
+
+  	<hr />
+
+
+
+	<% if (current_user == @entry.user) || (logged_in? && current_user.following?(@entry.user)) %>
+		<h4>Post a comment</h4>
+		
+		<section class="entry_form">
+        <%= render 'shared/comment_form' %>
+      </section>
+		
+	<% end %>
+
   </div>
 </div>

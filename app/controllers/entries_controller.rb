@@ -2,8 +2,18 @@ class EntriesController < ApplicationController
 	before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def index
+    @entries = Entry.paginate(page: params[:page])
+  end
+
   def show
     @entry = Entry.find(params[:id])
+    @comments = @entry.comments.paginate(page: params[:page])
+    @comment = @entry.comments.build if logged_in?
+  end
+
+  def new
+    @entry = Entry.new
   end
 
   def create
@@ -15,6 +25,9 @@ class EntriesController < ApplicationController
       @feed_items = []
       render 'static_pages/home'
     end
+  end
+
+  def edit
   end
 
   def destroy
