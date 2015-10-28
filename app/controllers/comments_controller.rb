@@ -3,11 +3,11 @@ class CommentsController < ApplicationController
 
 	def create
 	    @entry = Entry.find(params[:entry_id])
-	    @comment = @entry.comments.create({content: params[:comment][:content], entry_id: params[:entry_id]}) 
+	    @comment = @entry.comments.create({content: params[:comment][:content], entry_id: params[:entry_id], user_id: params[:user_id]}) 
 	    if @comment.save
 	      flash[:success] = "Comment created!"
 	    else
-	      flash[:danger] = "Errors...."
+	      flash[:danger] = "Comment can't be blank"
 	    end
 	    redirect_to @entry
   	end
