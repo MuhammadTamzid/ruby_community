@@ -32,7 +32,7 @@ class EntriesController < ApplicationController
 
   def destroy
     @entry.destroy
-    flash[:success] = "Post deleted"
+    flash[:success] = "Entry deleted"
     redirect_to request.referrer || root_url
   end
 
